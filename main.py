@@ -66,7 +66,7 @@ def create_questions(stage: Stage):
 #    questions.append({"question": "問題文3問題文3問題文3", "answer_index": 3, "options": [ "選択肢A", "選択肢B", "選択肢C", "選択肢D" ], "level": 3})
     return questions
 
-@app.post("/create-questions-para")
+@app.post("/create-questions-para/")
 def create_questions_para(stage: Stage):
     _questions = [call_openai.gen_one_question(stage.dungeon_name, stage.stage_name, math.ceil(i/5) ) for i in range(15)]
     _tasks = [agent.arun(q) for q in _questions]
