@@ -40,7 +40,7 @@ class Question(BaseModel):
 @app.post("/create-stages/")
 def create_stages(dungeon: Dungeon):
     # openaiを用いてステージ名を生成
-    _list = call_openai.gen_category_list()
+    _list = call_openai.gen_category_list(dungeon.name)
     
     _stages = {"stages":"dummy"} # 仮で作成
     _stages["stages"] = _list
