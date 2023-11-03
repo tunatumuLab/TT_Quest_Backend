@@ -75,7 +75,7 @@ async def create_questions_para(stage: Stage):
     # _questions = [call_openai.gen_one_question(stage.dungeon_name, stage.stage_name, math.ceil(i/5) ) for i in range(15)]
     # _tasks = [agent.arun(q) for q in _questions]
     # await asyncio.gather(*_tasks)
-    max_workers = 3
+    max_workers = 4
     _questions = []
     with ProcessPoolExecutor(max_workers=max_workers) as executor:
         #for i in range(15)
