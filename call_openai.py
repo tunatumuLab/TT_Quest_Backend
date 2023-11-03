@@ -23,7 +23,7 @@ def gen_stage_list(dungeon_name):
   return _list_stage
 
 
-# 問題・解答の組を生成（入力： カテゴリ名）
+# 複数の、問題・解答の組を生成（入力： カテゴリ名）
 def gen_question_list(dungeon_name, stage_name):
   response = openai.ChatCompletion.create(
     model="gpt-4",
@@ -54,9 +54,36 @@ def gen_question_list(dungeon_name, stage_name):
 #        {"role": "user", "content": "ITパスポートで出題されるような問題を３段階の難易度で分類し、それぞれの難易度における「例題と４択の回答案、そして正解」を組みとして、2つずつ出力してください"}
     ]
   )
+  _list_question = response["choices"][0]["message"]["content"]["questions"]
+  
+  return _list_question
+
+
+# 1組の、「問題・解答」の組を生成
+def gen_one_question(dungeon_name, stage_name, difficulity):
+  response = openai.ChatCompletion.create(
+    model="gpt-4",
+    messages=[
+      {"role":"system", "content":'''The output should be a markdown code snippet formatted in the following schema; only values must be Japanese:
+      # Please do not include anything other than JSON in your answer.
+
+      \`\`\`json
+      {
+         question: string,
+         choices: array of string,   // candidates of the answer.
+         answer: int,   // index of the choices (start with zero)
+         difficulity: string   // high, mid, low
+      }
+      \`\`\`
+      '''},
+      {"role": "user", "content": "ITパスポートの試験範囲のうち、ネットワーク管理で出題されるような問題のうち、難易度が高いものを出力してください"},
+      temperature=0.9  # to be adjusted
+    ]
+  )
   _list_question = response["choices"][0]["message"]["content"]
   
   return _list_question
+
 
 
 ###
