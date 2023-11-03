@@ -81,8 +81,8 @@ def gen_one_question(dungeon_name, stage_name, difficulity):
       \`\`\`
       '''},
       {"role": "user", "content": "ITパスポートの試験範囲のうち、ネットワーク管理で出題されるような問題のうち、難易度が高いものを出力してください"},
-      temperature=0.9  # to be adjusted
     ]
+    temperature=0.9  # to be adjusted
   )
   _list_question = response["choices"][0]["message"]["content"]
   
