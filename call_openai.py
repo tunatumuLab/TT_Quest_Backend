@@ -30,7 +30,7 @@ def gen_question_list(dungeon_name, stage_name):
 #    model="gpt-3.5-turbo",
     messages=[
 #        {"role": "system", "content": "JSON形式で出力お願いします。選択肢は配列形式、正解は配列のインデックス番号、各問題オブジェクトに難易度のキーを付けてください"},
-      {"role":"system", '''content":"The output should be a markdown code snippet formatted in the following schema in Japanese:
+      {"role":"system", "content":'''The output should be a markdown code snippet formatted in the following schema in Japanese:
 
       \`\`\`json
       [
