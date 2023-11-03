@@ -27,13 +27,14 @@ class Question(BaseModel):
 # ダンジョン生成（実際にはダンジョン内のステージ名を生成）
 @app.post("/create-stages/")
 def create_stages(dungeon: Dungeon):
-    return {"message": "hoge"}
+    # テスト用の固定値
+    return {"stages": [ "確率と確率変数", "種々の確率分布", "統計的推測（推定）", "統計的推測（検定）", "データ解析・分析手法" ] }
 
 # 問題生成
 @app.post("/create-questions/")
 def create_questions(stage: Stage):
-    return {"message": "foo"}
-
+    # テスト用の固定値
+    return {"question": "問題文問題文問題文", "answer_index": 2, "options": [ "選択肢A", "選択肢B", "選択肢C", "選択肢D" ], "level": 3 }
 
 # シンプルなJSON Bodyの受け取り
 @app.post("/user/")
