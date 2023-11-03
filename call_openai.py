@@ -112,7 +112,7 @@ def gen_one_question(dungeon_name, stage_name, difficulity):
       }
       \`\`\`
       '''},
-      {"role": "user", "content": "%sの出題範囲のうち、%sで出題されるような問題のうち、%sものを各項目が３０文字以下になるように出力してください"%(dungeon_name, stage_name, difficulity_str)}
+      {"role": "user", "content": "%sの出題範囲のうち、%sの問題で、%sものを各項目が３０文字以下になるように出力してください"%(dungeon_name, stage_name, difficulity_str)}
     ],
     temperature=0.9  # to be adjusted
   )
