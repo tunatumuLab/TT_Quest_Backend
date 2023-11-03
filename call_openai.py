@@ -1,7 +1,8 @@
 import openai
 
 # OpenAIの API Key
-openai.api_key = "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"
+#openai.api_key = "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"
+openai.api_key = "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"
 
 # カテゴリ一覧の取得 (カテゴリは ver.3.5のほうが筋が良さそう)
 def gen_stage_list(dungeon_name):
