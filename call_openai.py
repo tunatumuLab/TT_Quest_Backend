@@ -65,6 +65,7 @@ def gen_question_list(dungeon_name, stage_name):
 
 # 1組の、「問題・解答」の組を生成
 def gen_one_question(dungeon_name, stage_name, difficulity):
+  print("Start : ", stage_name)
   response = openai.ChatCompletion.create(
     model="gpt-4",
     messages=[
@@ -85,6 +86,7 @@ def gen_one_question(dungeon_name, stage_name, difficulity):
     temperature=0.9  # to be adjusted
   )
   _list_question = response["choices"][0]["message"]["content"]
+  print("Finish : ", stage_name)
   
   return _list_question
 
