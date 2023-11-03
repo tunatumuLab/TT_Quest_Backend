@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel  # リクエストbodyを定義するために必要
 from typing import List  # ネストされたBodyを定義するために必要
+from starlette.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
