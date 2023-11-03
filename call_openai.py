@@ -24,12 +24,12 @@ def gen_stage_list(dungeon_name):
 
 
 # 問題・解答の組を生成（入力： カテゴリ名）
-def gen_question_list(category_name):
+def gen_question_list(dungeon_name, stage_name):
   response = openai.ChatCompletion.create(
     model="gpt-4",
     messages=[
-        {"role": "system", "content": "フォーマルに答えてください"},
-        {"role": "user", "content": "ITパスポートで出題されるような問題を３段階の難易度で分類し、それぞれの難易度における例題と４択の回答案、そして正解を組みとして、２つずつ出力してください"}
+        {"role": "system", "content": "JSON形式で出力お願いします。選択肢は配列形式、正解は配列のインデックス番号、各問題オブジェクトに難易度のキーを付けてください"},
+        {"role": "user", "content": "ITパスポートで出題されるような問題を３段階の難易度で分類し、それぞれの難易度における「例題と４択の回答案、そして正解」を組みとして、1つずつ出力してください"}
     ]   
   )
   _list_category = response["choices"][0]["message"]["content"].split(',')
