@@ -4,17 +4,22 @@ import openai
 openai.api_key = "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"
 
 # カテゴリ一覧の取得 (カテゴリは ver.3.5のほうが筋が良さそう)
-def gen_category_list(test_name):
+def gen_stage_list(dungeon_name):
+  # プロンプトの ひな形（ダンジョン名を結合する）
+  _prompt=[
+      {"role": "system", "content": "フォーマルに答えてください"},
+      {"role": "user", "content": "dummy"}
+  ]
+  _prompt[1]["content"] = dungeon_name + "で出題されるような問題のカテゴリを、カンマ区切りで出力してください。ただし、要素数は10以内でお願いします"
+
+  # GPTからの回答を取得する
   response = openai.ChatCompletion.create(
     model="gpt-3.5-turbo",
-    messages=[
-        {"role": "system", "content": "フォーマルに答えてください"},
-        {"role": "user", "content": "ITパスポートで出題されるような問題のカテゴリを、カンマ区切りで出力してください。ただし、要素数は10以内でお願いします"}
-    ]   
+    messages=_prompt
   )
-  _list_category = response["choices"][0]["message"]["content"].split(',')
+  _list_stage = response["choices"][0]["message"]["content"].split(',')
 
-  return _list_category
+  return _list_stage
 
 
 # 問題・解答の組を生成（入力： カテゴリ名）
