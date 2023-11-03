@@ -75,7 +75,7 @@ async def create_questions_para(stage: Stage):
     # _questions = [call_openai.gen_one_question(stage.dungeon_name, stage.stage_name, math.ceil(i/5) ) for i in range(15)]
     # _tasks = [agent.arun(q) for q in _questions]
     # await asyncio.gather(*_tasks)
-    max_workers = 4
+    max_workers = 5
     _questions = []
     with ProcessPoolExecutor(max_workers=max_workers) as executor:
         #for i in range(15)
@@ -105,3 +105,7 @@ def create_users(users: List[User]):
         new_users.append({"res": "ok", "ID": user.user_id, "名前": user.name})
     # 整形したデータをレスポンスbodyを送信
     return new_users
+
+@app.get("/")
+def state():
+    return os.cpu_count() 
