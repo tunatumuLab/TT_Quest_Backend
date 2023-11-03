@@ -58,7 +58,7 @@ def gen_question_list(dungeon_name, stage_name):
     messages=_messages
   )
   
-  _list_question = response["choices"][0]["message"]["content"]["questions"]
+  _list_question = response["choices"][0]["message"]["content"]
   
   return _list_question
 
