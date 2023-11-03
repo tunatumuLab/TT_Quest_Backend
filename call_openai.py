@@ -32,7 +32,7 @@ def gen_question_list(dungeon_name, stage_name):
         {"role": "user", "content": "ITパスポートで出題されるような問題を３段階の難易度で分類し、それぞれの難易度における「例題と４択の回答案、そして正解」を組みとして、1つずつ出力してください"}
     ]   
   )
-  _list_category = response["choices"][0]["message"]["content"].split(',')
+  _list_question = response["choices"][0]["message"]["content"]
   
   return _list_question
 
