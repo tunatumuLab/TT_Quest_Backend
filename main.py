@@ -10,6 +10,9 @@ class User(BaseModel):
     user_id: int
     name: str
 
+class Dungeon(BaseModel):
+    name: str
+
 class Stage(BaseModel):
     dungeon_name: str
     stage_name: str
@@ -23,7 +26,7 @@ class Question(BaseModel):
 
 # ダンジョン生成（実際にはダンジョン内のステージ名を生成）
 @app.post("/create-stages/")
-def create_stages(dungeon_name: str):
+def create_stages(dungeon: Dungeon):
     return {"message": "hoge"}
 
 # 問題生成
