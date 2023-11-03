@@ -10,6 +10,27 @@ class User(BaseModel):
     user_id: int
     name: str
 
+class Stage(BaseModel):
+    dungeon_name: str
+    stage_name: str
+
+# 使わない
+class Question(BaseModel):
+    question: str
+    answer_index: int
+    options = []
+    level: int
+
+# ダンジョン生成（実際にはダンジョン内のステージ名を生成）
+@app.post("/create-stages/")
+def create_stages(dungeon_name: str):
+    return {"message": "hoge"}
+
+# 問題生成
+@app.post("/create-questions/")
+def create_questions(stage: Stage):
+    return {"message": "foo"}
+
 
 # シンプルなJSON Bodyの受け取り
 @app.post("/user/")
