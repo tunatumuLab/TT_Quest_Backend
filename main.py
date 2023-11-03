@@ -3,6 +3,10 @@ from pydantic import BaseModel  # リクエストbodyを定義するために必
 from typing import List  # ネストされたBodyを定義するために必要
 from starlette.middleware.cors import CORSMiddleware
 
+import call_openai
+import json
+
+
 app = FastAPI()
 
 # CORSを回避するために追加
@@ -35,8 +39,16 @@ class Question(BaseModel):
 # ダンジョン生成（実際にはダンジョン内のステージ名を生成）
 @app.post("/create-stages/")
 def create_stages(dungeon: Dungeon):
-    # テスト用の固定値
-    return {"stages": [ "確率と確率変数", "種々の確率分布", "統計的推測（推定）", "統計的推測（検定）", "データ解析・分析手法" ] }
+    # openaiを用いてステージ名を生成
+    _list = call_openai.gen_category_list()
+    
+    _stages = {"stages":"dummy"} # 仮で作成
+    _stages["stages"] = _list
+    
+    return _stages
+    
+#    # テスト用の固定値
+#    return {"stages": [ "確率と確率変数", "種々の確率分布", "統計的推測（推定）", "統計的推測（検定）", "データ解析・分析手法" ] }
 
 # 問題生成
 @app.post("/create-questions/")
