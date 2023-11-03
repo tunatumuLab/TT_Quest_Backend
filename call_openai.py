@@ -67,7 +67,7 @@ def gen_question_list(dungeon_name, stage_name):
 def gen_one_question(dungeon_name, stage_name, difficulity):
   print("Start : ", stage_name)
   response = openai.ChatCompletion.create(
-    model="gpt-4",
+    model="gpt-3.5-turbo",
     messages=[
       {"role":"system", "content":'''The output should be a markdown code snippet formatted in the following schema; only values must be Japanese:
       # Please do not include anything other than JSON in your answer.

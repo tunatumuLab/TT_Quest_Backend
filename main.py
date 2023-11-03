@@ -7,6 +7,8 @@ import call_openai
 import json
 import asyncio
 import math
+import os
+from concurrent.futures import ProcessPoolExecutor
 
 
 app = FastAPI()
@@ -69,10 +71,18 @@ def create_questions(stage: Stage):
 
 @app.post("/create-questions-para")
 async def create_questions_para(stage: Stage):
-    _questions = [call_openai.gen_one_question(stage.dungeon_name, stage.stage_name, math.ceil(i/5) ) for i in range(15)]
-    _tasks = [agent.arun(q) for q in _questions]
-    await asyncio.gather(*_tasks)
-    
+    # _questions = [call_openai.gen_one_question(stage.dungeon_name, stage.stage_name, math.ceil(i/5) ) for i in range(15)]
+    # _tasks = [agent.arun(q) for q in _questions]
+    # await asyncio.gather(*_tasks)
+    max_workers = os.cpu_count() 
+    _questions = []
+    with ProcessPoolExecutor(max_workers=max_workers) as executor:
+        #for i in range(15)
+        #    executor.submit(call_openai.gen_one_question(stage.dungeon_name, stage.stage_name, math.ceil(i/5) ))
+        _questions = executor.map(call_openai.gen_one_question, [stage.dungeon_name for i in range(15)], [stage.stage_name for i in range(15)], [math.ceil(i/5) for i in range(15)])
+
+
+
     questions = {"questions": "dummy"}
     questions["questions"] = _questions
     return questions   
