@@ -4,6 +4,14 @@ from typing import List  # ネストされたBodyを定義するために必要
 
 app = FastAPI()
 
+# CORSを回避するために追加
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,   # 追記により追加
+    allow_methods=["*"],      # 追記により追加
+    allow_headers=["*"]       # 追記により追加
+)
 
 # リクエストbodyを定義
 class User(BaseModel):
