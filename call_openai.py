@@ -30,7 +30,8 @@ def gen_question_list(dungeon_name, stage_name):
 #    model="gpt-3.5-turbo",
     messages=[
 #        {"role": "system", "content": "JSON形式で出力お願いします。選択肢は配列形式、正解は配列のインデックス番号、各問題オブジェクトに難易度のキーを付けてください"},
-      {"role":"system", "content":'''The output should be a markdown code snippet formatted in the following schema in Japanese:
+      {"role":"system", "content":'''The output should be a markdown code snippet formatted in the following schema; only values must be Japanese:
+      # Please do not include anything other than JSON in your answer.
 
       \`\`\`json
       [
@@ -48,10 +49,6 @@ def gen_question_list(dungeon_name, stage_name):
         }
       ]
       \`\`\`
-      
-      NOTES:
-      * Please do not include anything other than JSON in your answer.
-      * Only values must be Japanese
       '''},
       {"role": "user", "content": "ITパスポートの試験範囲のうち、ネットワーク管理で出題されるような問題を３段階の難易度で分類し、それぞれの難易度における「例題と４択の回答案、そして正解」を組みとして、5つずつ出力してください"}
 #        {"role": "user", "content": "ITパスポートで出題されるような問題を３段階の難易度で分類し、それぞれの難易度における「例題と４択の回答案、そして正解」を組みとして、2つずつ出力してください"}
