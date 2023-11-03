@@ -33,6 +33,7 @@ class Dungeon(BaseModel):
 class Stage(BaseModel):
     dungeon_name: str
     stage_name: str
+    difficulity: int
 
 class Question(BaseModel):
     question: str
@@ -79,9 +80,7 @@ async def create_questions_para(stage: Stage):
     with ProcessPoolExecutor(max_workers=max_workers) as executor:
         #for i in range(15)
         #    executor.submit(call_openai.gen_one_question(stage.dungeon_name, stage.stage_name, math.ceil(i/5) ))
-        _questions = executor.map(call_openai.gen_one_question, [stage.dungeon_name for i in range(15)], [stage.stage_name for i in range(15)], [math.ceil(i/5) for i in range(15)])
-
-
+        _questions = executor.map(call_openai.gen_one_question, [stage.dungeon_name for i in range(5)], [stage.stage_name for i in range(5)], [stage.difficulity for i in range(5)])
 
     questions = {"questions": "dummy"}
     questions["questions"] = _questions

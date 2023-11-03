@@ -4,6 +4,30 @@ import os
 # OpenAIの API Key
 openai.api_key = os.getenv('OPENAI_KEY')
 
+
+import json
+
+def extract_longest_json_string(s: str) -> str:
+    json_strings = []
+    current_json_string = ""
+    in_json = False
+    for i in range(len(s)):
+        if s[i] == "{" and not in_json:
+            in_json = True
+            current_json_string += s[i]
+        elif s[i] == "}" and in_json:
+            current_json_string += s[i]
+            json_strings.append(current_json_string)
+            current_json_string = ""
+            in_json = False
+        elif in_json:
+            current_json_string += s[i]
+    if len(json_strings) == 0:
+        return ""
+    longest_json_string = max(json_strings, key=len)
+    return longest_json_string
+
+
 # カテゴリ一覧の取得 (カテゴリは ver.3.5のほうが筋が良さそう)
 def gen_stage_list(dungeon_name):
   # プロンプトの ひな形（ダンジョン名を結合する）
@@ -65,7 +89,14 @@ def gen_question_list(dungeon_name, stage_name):
 
 # 1組の、「問題・解答」の組を生成
 def gen_one_question(dungeon_name, stage_name, difficulity):
-  print("Start : ", stage_name)
+  print("Start : ", difficulity)
+  difficulity_str = ""
+  if difficulity == 0:
+    difficulity_str = "簡単な"
+  elif difficulity == 1:
+    difficulity_str = "平均的な難易度の"
+  else:
+    difficulity_str = "難しい"
   response = openai.ChatCompletion.create(
     model="gpt-3.5-turbo",
     messages=[
@@ -75,18 +106,18 @@ def gen_one_question(dungeon_name, stage_name, difficulity):
       \`\`\`json
       {
          question: string,
-         choices: array of string,   // candidates of the answer.
+         choices: array of string, This item should output four choices.  // candidates of the answer.
          answer: int,   // index of the choices (start with zero)
          difficulity: string   // high, mid, low
       }
       \`\`\`
       '''},
-      {"role": "user", "content": "ITパスポートの試験範囲のうち、ネットワーク管理で出題されるような問題のうち、難易度が高いものを出力してください"}
+      {"role": "user", "content": "%sの出題範囲のうち、%sで出題されるような問題のうち、%sものを各項目が３０文字以下になるように出力してください"%(dungeon_name, stage_name, difficulity_str)}
     ],
     temperature=0.9  # to be adjusted
   )
-  _list_question = response["choices"][0]["message"]["content"]
-  print("Finish : ", stage_name)
+  _list_question = json.loads(extract_longest_json_string(response["choices"][0]["message"]["content"]))
+  print("Finish : ", difficulity)
   
   return _list_question
 
