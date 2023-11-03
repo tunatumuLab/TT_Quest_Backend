@@ -53,7 +53,7 @@ def gen_question_list(dungeon_name, stage_name):
       * Please do not include anything other than JSON in your answer.
       * Only values must be Japanese
       '''},
-      {"role": "user", "content": "ITパスポートの試験範囲のうち、ネットワーク管理で出題されるような問題を３段階の難易度で分類し、それぞれの難易度における「例題と４択の回答案、そして正解」を組みとして、5つずつ出力してください"}
+      {"role": "user", "content": "ITパスポートの試験範囲のうち、ネットワーク管理で出題されるような問題を３段階の難易度で分類し、それぞれの難易度における「例題と４択の回答案、そして正解」を組みとして、1つずつ出力してください"}
 #        {"role": "user", "content": "ITパスポートで出題されるような問題を３段階の難易度で分類し、それぞれの難易度における「例題と４択の回答案、そして正解」を組みとして、2つずつ出力してください"}
     ]
   )
