@@ -17,7 +17,6 @@ class Stage(BaseModel):
     dungeon_name: str
     stage_name: str
 
-# 使わない
 class Question(BaseModel):
     question: str
     answer_index: int
@@ -34,8 +33,12 @@ def create_stages(dungeon: Dungeon):
 @app.post("/create-questions/")
 def create_questions(stage: Stage):
     # テスト用の固定値
-    return {"question": "問題文問題文問題文", "answer_index": 2, "options": [ "選択肢A", "選択肢B", "選択肢C", "選択肢D" ], "level": 3 }
-
+    questions = []
+    questions.append({"question": "問題文1問題文1問題文1", "answer_index": 1, "options": [ "選択肢A", "選択肢B", "選択肢C", "選択肢D" ], "level": 1})
+    questions.append({"question": "問題文2問題文2問題文2", "answer_index": 2, "options": [ "選択肢A", "選択肢B", "選択肢C", "選択肢D" ], "level": 2})
+    questions.append({"question": "問題文3問題文3問題文3", "answer_index": 3, "options": [ "選択肢A", "選択肢B", "選択肢C", "選択肢D" ], "level": 3})
+    return questions
+    
 # シンプルなJSON Bodyの受け取り
 @app.post("/user/")
 # 上で定義したUserモデルのリクエストbodyをuserで受け取る
